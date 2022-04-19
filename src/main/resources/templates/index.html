@@ -58,23 +58,22 @@
 
 		<!-- check -->
 		<table>
-			<tr style="color:red" th:inline="text" th:each="message: ${errorlist}}">
+			<tr style="color:red" th:inline="text" th:each= "message:${errorList}">
 				<td colspan="4">
 					[[${message.defaultMessage}]]
 				</td>
 			</tr>
 		</table>
-		
 	</form>
-
-
 </div>
-
 
 <footer>
 	<br>
 	<br>
-	<h4 align="right">Softingusing.co.jp</h4>
+	<div style="width:600px; margin:0 auto">
+		<h4 align="right">SoftUsing.co.jp</h4>
+	</div>
+
 </footer>
 
 </body>

@@ -23,7 +23,7 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public String login(Model model) {
+    public String login(@ModelAttribute("form") UserForm userForm, Model model) {
         return "/index";
     }
 

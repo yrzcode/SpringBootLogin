@@ -31,14 +31,14 @@ public class UserService implements IUserService {
 
         User user = userMapper.queryUser(userForm.getAccountId());
 
-        List<String> errorlist = new ArrayList<String>();
+        List<String> errorList = new ArrayList<String>();
 
         if (user == null) {
-            errorlist.add("login.message.accountId.error");
+            errorList.add("login.message.accountId.error");
         } else if (!user.getPassword().equals(userForm.getPassword())) {
-            errorlist.add("login.message.password.password.error");
+            errorList.add("login.message.password.password.error");
         }
 
-        return errorlist;
+        return errorList;
     }
 }
