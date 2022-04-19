@@ -8,39 +8,42 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 @Controller
 @ComponentScan()
+@RequestMapping("index")
 public class UserController {
 
     @Resource
     private UserService userService;
 
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
+//    @GetMapping("index")
     public String login(@ModelAttribute("form") UserForm userForm, Model model) {
         return "/index";
     }
 
-    @RequestMapping(value = "/auth", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
+//    @GetMapping("index")
     public String auth(@ModelAttribute("form") @Valid UserForm userForm, BindingResult result, Model model){
 
         String url = null;
 
         if (result.hasErrors()) {
-            List<ObjectError> errorList = result.getAllErrors();
-            model.addAttribute("errorList", errorList);
+            List<ObjectError> inputCheckErrorList = result.getAllErrors();
+            model.addAttribute("inputCheckErrorList", inputCheckErrorList);
             url = "/index";
         }
 
-        List<String> errorlist = userService.getResult(userForm);
-        if (!(errorlist.size() == 0)) {
-            model.addAttribute("message", errorlist.get(0));
+        List<String> dataBaseErrorList = userService.getResult(userForm);
+        if (!(dataBaseErrorList.size() == 0)) {
+            model.addAttribute("message", dataBaseErrorList.get(0));
             url = "/index";
         } else {
             url = "/success";
