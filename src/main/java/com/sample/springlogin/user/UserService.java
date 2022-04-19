@@ -7,6 +7,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 @ComponentScan({ "mapper" })
 @Service("userService")
@@ -22,5 +24,21 @@ public class UserService implements IUserService {
     @Override
     public User queryUser(String accountId) {
         return userMapper.queryUser(accountId);
+    }
+
+    @Override
+    public List<String> getResult(UserForm userForm) {
+
+        User user = userMapper.queryUser(userForm.getAccountId());
+
+        List<String> errorlist = new ArrayList<String>();
+
+        if (user == null) {
+            errorlist.add("login.message.accountId.error");
+        } else if (!user.getPassword().equals(userForm.getPassword())) {
+            errorlist.add("login.message.password.password.error");
+        }
+
+        return errorlist;
     }
 }
