@@ -1,5 +1,7 @@
 package com.sample.springlogin.user;
 
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
@@ -8,17 +10,14 @@ import javax.annotation.Resource;
 
 @ComponentScan({ "mapper" })
 @Service("userService")
+@NoArgsConstructor
 public class UserService implements IUserService {
 
-    @Resource
-//	@Autowired
+	@Autowired
     private IUserMapper userMapper;
 
-    @Resource
+    @Autowired
     private MessageSource messageSource;
-
-    public UserService() {
-    }
 
     @Override
     public User queryUser(String accountId) {

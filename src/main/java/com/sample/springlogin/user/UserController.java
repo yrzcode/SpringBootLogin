@@ -45,8 +45,6 @@ public class UserController {
             url = "/success";
         }
 
-//        url = "/index";
-//        model.addAttribute("message", accountId);
 
         return url;
     }
