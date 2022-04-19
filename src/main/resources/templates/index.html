@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>welcome</title>
+</head>
+<body>
+
+<h1 align="center">社員管理システム</h1>
+<div id="typein" align="center" style="border:1px solid; width:450px; margin:0 auto; padding:24px 0 8px">
+<!--	<form action="#" th:action="@{/auth}">-->
+	<form action="/auth" method="post">
+		<table>
+			<!-- user -->
+			<tr>
+				<td>ユーザID</td>
+			</tr>
+			
+			<tr>
+				<td>
+					<input 	type="text" 
+							name="accountId" 
+							value="" 
+							size="40"
+						   	placeholder="Emailアドレスを入力してください"/>
+				</td>
+			</tr>
+			
+			<tr>
+				<td></td>
+			</tr>
+			
+			<!-- password -->
+			<tr>
+				<td>パスワード</td>
+			</tr>
+			<tr>
+				<td>
+					<input  type="password"
+							name="password"
+							value=""
+							size="40"
+							maxlength="6"/>
+				</td>
+			</tr>
+		</table>
+		
+		<input	type="submit"
+				value="ログイン"
+				class="loginbtn"
+				style="margin-top: 24px"/>
+		<br>
+		
+		<div>
+			<p th:text="${message}"></p>
+		</div>
+		
+	</form>
+</div>
+
+<footer>
+	<br>
+	<br>
+	<h4 align="right">Softingusing.co.jp</h4>
+</footer>
+
+</body>
+</html>
