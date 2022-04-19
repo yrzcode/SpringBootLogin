@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sample.springlogin.mapper.IUserMapper">
-    <!-- ログインユーザーを検索 -->
+<mapper namespace="com.sample.springlogin.user.IUserMapper">
+    <!-- ログインユーザーを検索    -->
     <select id="queryUser" parameterType="String" resultType="com.sample.springlogin.user.User">
         SELECT
             accountId,password

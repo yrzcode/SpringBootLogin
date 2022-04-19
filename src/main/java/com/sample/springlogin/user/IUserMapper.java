@@ -1,9 +1,9 @@
-package com.sample.springlogin.mapper;
+package com.sample.springlogin.user;
 
 import com.sample.springlogin.user.User;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface IUserMapper {
-    public User queryUser(String accountId);
+    User queryUser(String accountId);
 }
