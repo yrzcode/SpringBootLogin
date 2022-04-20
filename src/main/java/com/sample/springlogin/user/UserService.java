@@ -1,24 +1,19 @@
 package com.sample.springlogin.user;
 
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
-@ComponentScan({ "mapper" })
-@Service("userService")
-@NoArgsConstructor
+@Service()
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class UserService implements IUserService {
 
-	@Autowired
     private IUserMapper userMapper;
-
-    @Autowired
     private MessageSource messageSource;
 
     @Override

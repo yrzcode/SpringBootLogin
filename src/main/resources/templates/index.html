@@ -9,7 +9,8 @@
 
 <h1 align="center">社員管理システム</h1>
 <div id="typein" align="center" style="border:1px solid; width:450px; margin:0 auto; padding:24px 0 8px">
-	<form action="#" th:action="@{/index}"  method="post" th:object="${form}">
+<!--	<form action="#" th:action="@{index}"  method="post" th:object="${form}">-->
+	<form action="#" th:action="@{index}"  method="post">
 <!--	<form action="/auth" method="post">-->
 		<table>
 			<!-- user -->
@@ -53,7 +54,8 @@
 		<br>
 		
 		<div>
-			<p th:text="${message}"></p>
+<!--			<p th:text="${message}"></p>-->
+			<p>[[${message}]]</p>
 		</div>
 
 		<!-- check -->

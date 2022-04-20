@@ -1,58 +1,60 @@
 package com.sample.springlogin.user;
 
-import javax.annotation.Resource;
 import javax.validation.Valid;
 
-import org.springframework.context.annotation.ComponentScan;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
-@ComponentScan()
 @RequestMapping("index")
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class UserController {
 
-    @Resource
     private UserService userService;
 
-    @RequestMapping(method = RequestMethod.GET)
 //    @GetMapping("index")
-    public String login(@ModelAttribute("form") UserForm userForm, Model model) {
-        return "/index";
-    }
+//    public String login(@ModelAttribute("form") UserForm userForm, Model model) {
+//        return "index";
+//    }
 
-    @RequestMapping(method = RequestMethod.POST)
-//    @GetMapping("index")
-    public String auth(@ModelAttribute("form") @Valid UserForm userForm, BindingResult result, Model model){
+    @PostMapping()
+    public String auth(
+            //@ModelAttribute("form")
+            @ModelAttribute
+            @Valid UserForm userForm,
+            BindingResult result,
+            Model model)
+    {
 
         String url = null;
 
         if (result.hasErrors()) {
             List<ObjectError> inputCheckErrorList = result.getAllErrors();
             model.addAttribute("inputCheckErrorList", inputCheckErrorList);
-            url = "/index";
+            url = "index";
         }
 
         List<String> dataBaseErrorList = userService.getResult(userForm);
         if (!(dataBaseErrorList.size() == 0)) {
             model.addAttribute("message", dataBaseErrorList.get(0));
-            url = "/index";
+            url = "index";
         } else {
-            url = "/success";
+            url = "success";
         }
 
         return url;
+
     }
 
 
-//    @RequestMapping(value = "/auth", method = RequestMethod.POST)
+//    @PostMapping()
 //    public String login(
 //            @RequestParam(value = "accountId") String accountId,
 //            @RequestParam(value = "password") String password,
@@ -63,6 +65,7 @@ public class UserController {
 //        String message = null;
 //
 //        User user = userService.queryUser(accountId);
+
 //        if (user == null) {
 //            message = "不正なユーザIDです!";
 //            model.addAttribute("message", message);

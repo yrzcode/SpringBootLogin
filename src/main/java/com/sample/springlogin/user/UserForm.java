@@ -14,7 +14,6 @@ public class UserForm {
     @Email(message = "{login.error.accountId.isEmail}")
     private String accountId;
 
-
     @Getter @Setter
     @NotEmpty(message = "{login.error.accountId.notEmpty}")
     @Size(min = 6, max = 6, message = "{login.error.password.length")
