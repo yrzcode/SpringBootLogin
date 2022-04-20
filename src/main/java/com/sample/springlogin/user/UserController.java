@@ -13,21 +13,35 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("index")
+//@RequestMapping("index")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class UserController {
 
     private UserService userService;
 
 //    @GetMapping("index")
-//    public String login(@ModelAttribute("form") UserForm userForm, Model model) {
+////    @RequestMapping(value = "index", method = RequestMethod.GET)
+//    public String auth() {
+//        return "index";
+//    }
+//
+//    @GetMapping("auth")
+////    @RequestMapping(value = "auth", method = RequestMethod.GET)
+//    public String home() {
 //        return "index";
 //    }
 
-    @PostMapping()
+    @GetMapping({"auth","index"})
+//    @RequestMapping(value = "auth", method = RequestMethod.GET)
+    public String home() {
+        return "index";
+    }
+
+    @PostMapping("auth")
+//    @RequestMapping(value = "auth", method = RequestMethod.POST)
     public String auth(
-            //@ModelAttribute("form")
-            @ModelAttribute
+            @ModelAttribute("form")
+            //@ModelAttribute
             @Valid UserForm userForm,
             BindingResult result,
             Model model)
@@ -50,11 +64,11 @@ public class UserController {
         }
 
         return url;
-
     }
 
 
-//    @PostMapping()
+    //@PostMapping()
+//    @RequestMapping(method = RequestMethod.POST)
 //    public String login(
 //            @RequestParam(value = "accountId") String accountId,
 //            @RequestParam(value = "password") String password,
@@ -65,7 +79,7 @@ public class UserController {
 //        String message = null;
 //
 //        User user = userService.queryUser(accountId);
-
+//
 //        if (user == null) {
 //            message = "不正なユーザIDです!";
 //            model.addAttribute("message", message);
@@ -75,7 +89,7 @@ public class UserController {
 //            model.addAttribute("message", message);
 //            url = "/index";
 //        } else {
-//            url = "/success";
+//            url = "success";
 //        }
 //
 //        return url;
