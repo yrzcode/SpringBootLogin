@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service()
+@Service("userService")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class UserService implements IUserService {
 
@@ -16,16 +16,10 @@ public class UserService implements IUserService {
     private MessageSource messageSource;
 
     @Override
-    public User queryUser(String accountId) {
-        return userMapper.queryUser(accountId);
-    }
+    public List<String> getAuthErrorList(UserForm userForm) {
 
-    @Override
-    public List<String> getResult(UserForm userForm) {
-
-        User user = userMapper.queryUser(userForm.getAccountId());
-
-        List<String> errorList = new ArrayList<String>();
+        var user = userMapper.queryUser(userForm.getAccountId());
+        var errorList = new ArrayList<String>();
 
         if (user == null) {
             errorList.add("login.message.accountId.error");
