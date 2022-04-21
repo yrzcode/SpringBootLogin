@@ -1,31 +1,35 @@
-package com.sample.springlogin.user;
+package com.sample.springlogin.controller.indexpagecontroller;
 
 import javax.validation.Valid;
 
+import com.sample.springlogin.user.IUserAuthService;
+import com.sample.springlogin.user.UserForm;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+
 @Controller
-@AllArgsConstructor(onConstructor = @__(@Autowired))
-public class UserController {
+@AllArgsConstructor
+public class UserAuthController {
 
-    private IUserService userService;
-
-    @GetMapping("user")
-    public String getToIndexPage() {
-        return "index";
-    }
+    IUserAuthService userIdPasswordAuthService;
 
     @PostMapping("user")
-    public String postToAuthPage(
+    String postToAuthPage(
             @ModelAttribute("form")
             @Valid UserForm userForm,
             BindingResult result,
             Model model) {
+
+
+        //test: see what are in model
+        model.asMap().forEach((k, v) -> {
+            System.out.println(k);
+            System.out.println(v);
+        });
 
 
         //check input error
@@ -36,7 +40,7 @@ public class UserController {
 
 
         //check database authentication error
-        var databaseAuthErrorList = userService.getAuthErrorList(userForm);
+        var databaseAuthErrorList = userIdPasswordAuthService.getAuthErrorList(userForm);
         var isPassDatabaseAuthCheck = databaseAuthErrorList.size() == 0;
         if (!isPassDatabaseAuthCheck)
             model.addAttribute("message", databaseAuthErrorList.get(0));

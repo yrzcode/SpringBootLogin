@@ -1,17 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Register success</title>
+    <meta charset="UTF-8">
+    <title>Success</title>
 </head>
 <body>
-
+    <p>success</p>
 	<p th:text="|${form.accountId}さんようこそ！|"></p>
 	<p th:text="${form.toString()}"></p>
-
-	<script>
-		console.log([# th:text="${form}" /]);
-	</script>
-
 </body>
 </html>

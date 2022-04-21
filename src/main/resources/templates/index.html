@@ -9,10 +9,13 @@
 <body>
 <h1 align="center">社員管理システム</h1>
 
+<!--container-->
 <div id="typein" align="center" style="border:1px solid; width:450px; margin:0 auto; padding:24px 0 8px">
 
+    <!--form-->
     <form action="#" th:action="@{user}" method="post" th:object="${form}">
 
+        <!--table-->
         <table>
             <tr>
                 <td>ユーザーID</td>
@@ -33,6 +36,7 @@
             </tr>
         </table>
 
+        <!-- submit -->
         <input type="submit" value="ログイン"
                class="loginbtn" style="margin-top: 24px"/>
         <br>
@@ -53,6 +57,7 @@
     </form>
 </div>
 
+<!--footer-->
 <footer>
     <br>
     <br>
