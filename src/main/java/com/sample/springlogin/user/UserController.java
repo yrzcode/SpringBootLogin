@@ -15,17 +15,18 @@ public class UserController {
 
     private IUserService userService;
 
-    @GetMapping({"auth", "index"})
+    @GetMapping("user")
     public String getToIndexPage() {
         return "index";
     }
 
-    @PostMapping("auth")
+    @PostMapping("user")
     public String postToAuthPage(
             @ModelAttribute("form")
             @Valid UserForm userForm,
             BindingResult result,
             Model model) {
+
 
         //check input error
         var inputErrorList = result.getAllErrors();
@@ -33,15 +34,22 @@ public class UserController {
         if (!isPassInputCheck)
             model.addAttribute("inputCheckErrorList", inputErrorList);
 
+
         //check database authentication error
         var databaseAuthErrorList = userService.getAuthErrorList(userForm);
-        var isPassDatabaseAuth = databaseAuthErrorList.size() == 0;
-        if (!isPassDatabaseAuth)
+        var isPassDatabaseAuthCheck = databaseAuthErrorList.size() == 0;
+        if (!isPassDatabaseAuthCheck)
             model.addAttribute("message", databaseAuthErrorList.get(0));
 
-        //decide which page to go by check result
-        var isPassAllCheck = isPassInputCheck && isPassDatabaseAuth;
+
+        //final check
+        var isPassAllCheck = isPassInputCheck
+                          && isPassDatabaseAuthCheck;
+
+
+        //decide which page to go by final check result
         return isPassAllCheck? "success" : "index";
+
 
     }
 
