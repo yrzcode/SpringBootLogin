@@ -13,9 +13,8 @@
 <div id="typein" align="center" style="border:1px solid; width:450px; margin:0 auto; padding:24px 0 8px">
 
     <!--form-->
-    <form action="#" th:action="@{user}" method="post" th:object="${form}">
+    <form th:action="@{AuthPage}" method="post">
 
-        <!--table-->
         <table>
             <tr>
                 <td>ユーザーID</td>
@@ -44,6 +43,7 @@
         <div>
             <p>[[${message}]]</p>
         </div>
+
 
         <!-- check -->
         <table>

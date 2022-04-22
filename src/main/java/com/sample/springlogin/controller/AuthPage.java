@@ -1,4 +1,4 @@
-package com.sample.springlogin.controller.indexpagecontroller;
+package com.sample.springlogin.controller;
 
 import javax.validation.Valid;
 
@@ -10,40 +10,48 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-
 @Controller
 @AllArgsConstructor
-public class UserAuthController {
+@RequestMapping("AuthPage")
+public class AuthPage {
+
+    static boolean hasPassAuth;
+    static String loginAccountId;
 
     IUserAuthService userIdPasswordAuthService;
 
-    @PostMapping("user")
-    String postToAuthPage(
-            @ModelAttribute("form")
+    @GetMapping
+    String getMappingAuth(
+            @ModelAttribute
+            UserForm userForm
+    ){
+        userForm.setAccountId(loginAccountId);
+        return hasPassAuth? "Success" : "AuthPage";
+    }
+
+    @PostMapping
+    String postMappingAuth(
+            Model model,
+            @ModelAttribute
             @Valid UserForm userForm,
-            BindingResult result,
-            Model model) {
+            BindingResult result
+            ) {
 
 
-        //test: see what are in model
-        model.asMap().forEach((k, v) -> {
-            System.out.println(k);
-            System.out.println(v);
-        });
-
-
-        //check input error
+        //check & get input error
         var inputErrorList = result.getAllErrors();
         var isPassInputCheck = inputErrorList.size() == 0;
         if (!isPassInputCheck)
             model.addAttribute("inputCheckErrorList", inputErrorList);
 
 
-        //check database authentication error
+        //check & get database authentication error
         var databaseAuthErrorList = userIdPasswordAuthService.getAuthErrorList(userForm);
         var isPassDatabaseAuthCheck = databaseAuthErrorList.size() == 0;
         if (!isPassDatabaseAuthCheck)
             model.addAttribute("message", databaseAuthErrorList.get(0));
+        else
+            loginAccountId = userForm.getAccountId();
 
 
         //final check
@@ -51,9 +59,12 @@ public class UserAuthController {
                           && isPassDatabaseAuthCheck;
 
 
-        //decide which page to go by final check result
-        return isPassAllCheck? "success" : "index";
+        //memorize login result
+        hasPassAuth = isPassAllCheck;
 
+
+        //decide which page to go by result
+        return isPassAllCheck? "success" : "AuthPage";
 
     }
 
