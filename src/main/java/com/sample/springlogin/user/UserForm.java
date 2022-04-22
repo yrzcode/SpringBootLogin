@@ -11,12 +11,12 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class UserForm {
 
-    @NotEmpty(message = "{login.error.accountId.notEmpty}")
-    @Email(message = "{login.error.accountId.isEmail}")
+    @NotEmpty(message="{login.error.accountId.notEmpty}")
+    @Email(message="{login.error.accountId.isEmail}")
     private String accountId;
 
-    @NotEmpty(message = "{login.error.accountId.notEmpty}")
-    @Size(min = 0, max = 6, message = "{login.error.password.length}")
+    @NotEmpty(message="{login.error.password.notEmpty}")
+    @Size(min = 0, max = 6, message="{login.error.password.length}")
     private String password;
 
 }

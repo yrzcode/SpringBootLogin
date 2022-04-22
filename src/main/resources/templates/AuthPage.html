@@ -7,7 +7,7 @@
 </head>
 
 <body>
-<h1 align="center">社員管理システム</h1>
+<h1 align="center" th:text="#{title}"></h1>
 
 <!--container-->
 <div id="typein" align="center" style="border:1px solid; width:450px; margin:0 auto; padding:24px 0 8px">
@@ -17,16 +17,16 @@
 
         <table>
             <tr>
-                <td>ユーザーID</td>
+                <td th:text="#{useerid}"></td>
             </tr>
             <tr>
                 <td>
                     <input type="text" name="accountId" value="" size="40"
-                           placeholder="Emailアドレスを入力してください"/>
+                           th:placeholder="#{login.useerid.placeholder}"/>
                 </td>
             </tr>
             <tr>
-                <td>パスワード</td>
+                <td th:text="#{password}"></td>
             </tr>
             <tr>
                 <td>
@@ -36,7 +36,7 @@
         </table>
 
         <!-- submit -->
-        <input type="submit" value="ログイン"
+        <input type="submit" th:attr="value=#{login}"
                class="loginbtn" style="margin-top: 24px"/>
         <br>
 
