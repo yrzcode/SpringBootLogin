@@ -13,7 +13,7 @@
 <div id="typein" align="center" style="border:1px solid; width:450px; margin:0 auto; padding:24px 0 8px">
 
     <!--form-->
-    <form th:action="@{AuthPage}" method="post">
+    <form th:action="@{AuthPage}" method="post" th:object="${form}">
 
         <table>
             <tr>
@@ -22,6 +22,7 @@
             <tr>
                 <td>
                     <input type="text" name="accountId" value="" size="40"
+                           th:field="*{accountId}"
                            th:placeholder="#{login.useerid.placeholder}"/>
                 </td>
             </tr>
@@ -30,7 +31,9 @@
             </tr>
             <tr>
                 <td>
-                    <input type="password" name="password" value="" maxlength="6" size="40"/>
+                    <input type="password" name="password"
+                           value="" maxlength="6" size="40"
+                           th:field="*{password}"/>
                 </td>
             </tr>
         </table>

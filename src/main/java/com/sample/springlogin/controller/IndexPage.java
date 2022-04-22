@@ -1,7 +1,9 @@
 package com.sample.springlogin.controller;
 
+import com.sample.springlogin.user.UserForm;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -9,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class IndexPage {
 
     @GetMapping
-    String getMappingIndex(){
+    String getMappingIndex(
+            @ModelAttribute("form")
+            UserForm userForm
+    ){
         AuthPage.hasPassAuth = false;
         return "AuthPage";
     }

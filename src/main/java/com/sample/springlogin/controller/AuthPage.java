@@ -22,7 +22,7 @@ public class AuthPage {
 
     @GetMapping
     String getMappingAuth(
-            @ModelAttribute
+            @ModelAttribute("form")
             UserForm userForm
     ){
         userForm.setAccountId(loginAccountId);
@@ -32,11 +32,10 @@ public class AuthPage {
     @PostMapping
     String postMappingAuth(
             Model model,
-            @ModelAttribute
+            @ModelAttribute("form")
             @Valid UserForm userForm,
             BindingResult result
             ) {
-
 
         //check & get input error
         var inputErrorList = result.getAllErrors();
