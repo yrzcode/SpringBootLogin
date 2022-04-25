@@ -1,16 +1,17 @@
-package com.sample.springlogin.controller;
+package com.sample.springlogin.controller.test;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("success")
-public class SuccessPage {
-
+@AllArgsConstructor
+@RequestMapping("test")
+public class TestPage {
     @GetMapping
-    String getSuccessPage() {
-        return "index";
+    String getMappingTest(){
+        return "test";
     }
 
 }

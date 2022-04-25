@@ -1,4 +1,4 @@
-package com.sample.springlogin.user;
+package com.sample.springlogin.bean.user;
 
 import org.apache.ibatis.annotations.Mapper;
 
