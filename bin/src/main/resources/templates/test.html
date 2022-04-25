@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>welcome</title>
+</head>
+
+<body>
+<h1 align="center">社員管理システム</h1>
+
+<!--container-->
+<div id="typein" align="center" style="border:1px solid; width:450px; margin:0 auto; padding:24px 0 8px">
+
+    <!--form-->
+<!--    <form action="#" th:action="@{user}" method="post" th:object="${form}">-->
+    <form action="#" th:action="@{AuthPage}" method="post" th:object="${userForm}">
+
+        <p>accountId</p>
+        <input type="text" name="*{accountId}"/>
+<!--        <input type="text" name="accountId">-->
+
+        <p>password</p>
+        <input type="text" name="*{password}"/>
+<!--        <input type="text" name="password">-->
+
+
+<!--        &lt;!&ndash;table&ndash;&gt;-->
+<!--        <table>-->
+<!--            <tr>-->
+<!--                <td>ユーザーID</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>-->
+<!--                    <input type="text" th:field="*{accountId}" size="40"-->
+<!--                           placeholder="Emailアドレスを入力してください"/>-->
+<!--&lt;!&ndash;                    <input type="text" name="accountId" value="" size="40"&ndash;&gt;-->
+<!--&lt;!&ndash;                           placeholder="Emailアドレスを入力してください"/>&ndash;&gt;-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>パスワード</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>-->
+<!--                    <input type="password" th:field="*{password}" maxlength="6" size="40"/>-->
+<!--&lt;!&ndash;                    <input type="password" name="password" value="" maxlength="6" size="40"/>&ndash;&gt;-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--        </table>-->
+
+        <!-- submit -->
+        <input type="submit" value="ログイン"
+               class="loginbtn" style="margin-top: 24px"/>
+        <br>
+
+        <div>
+            <p>[[${message}]]</p>
+        </div>
+
+        <!-- check -->
+        <table>
+            <tr style="color:red" th:inline="text" th:each="message:${inputCheckErrorList}">
+                <td colspan="4">
+                    [[${message.defaultMessage}]]
+                </td>
+            </tr>
+        </table>
+
+    </form>
+</div>
+
+
+<!--footer-->
+<footer>
+    <br>
+    <br>
+    <div style="width:600px; margin:0 auto">
+        <h4 align="right">SoftUsing.co.jp</h4>
+    </div>
+</footer>
+
+</body>
+</html>

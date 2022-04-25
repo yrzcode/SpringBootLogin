@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>welcome</title>
+</head>
+
+<body>
+<h1 align="center" th:text="#{title}"></h1>
+
+<!--container-->
+<div id="typein" align="center" style="border:1px solid; width:450px; margin:0 auto; padding:24px 0 8px">
+
+    <!--form-->
+    <form th:action="@{AuthPage}" method="post" th:object="${form}">
+
+        <table>
+            <tr>
+                <td th:text="#{useerid}"></td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="accountId" value="" size="40"
+                           th:field="*{accountId}"
+                           th:placeholder="#{login.useerid.placeholder}"/>
+                </td>
+            </tr>
+            <tr>
+                <td th:text="#{password}"></td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="password" name="password"
+                           value="" maxlength="6" size="40"
+                           th:field="*{password}"/>
+                </td>
+            </tr>
+        </table>
+
+        <!-- submit -->
+        <input type="submit" th:attr="value=#{login}"
+               class="loginbtn" style="margin-top: 24px"/>
+        <br>
+
+        <div>
+            <p>[[${message}]]</p>
+        </div>
+
+
+        <!-- check -->
+        <table>
+            <tr style="color:red" th:inline="text" th:each="message:${inputCheckErrorList}">
+                <td colspan="4">
+                    [[${message.defaultMessage}]]
+                </td>
+            </tr>
+        </table>
+
+    </form>
+</div>
+
+
+<!--footer-->
+<footer>
+    <br>
+    <br>
+    <div style="width:600px; margin:0 auto">
+        <h4 align="right">SoftUsing.co.jp</h4>
+    </div>
+</footer>
+
+</body>
+</html>
