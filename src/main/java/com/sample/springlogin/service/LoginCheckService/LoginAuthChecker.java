@@ -11,7 +11,7 @@ import com.sample.springlogin.service.DatabaseCheckService.IUserAuthService;
 @Service("authErrorChecker")
 public class LoginAuthChecker implements ILoginErrorChecker<String, UserForm> {
 
-	private  IUserAuthService userIdPasswordAuthService;
+	private final IUserAuthService userIdPasswordAuthService;
 	
 	@Autowired
 	public LoginAuthChecker(IUserAuthService userIdPasswordAuthService) {

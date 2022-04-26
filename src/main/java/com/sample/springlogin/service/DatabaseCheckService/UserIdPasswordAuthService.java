@@ -15,8 +15,8 @@ import com.sample.springlogin.bean.user.UserForm;
 @Service
 public class UserIdPasswordAuthService implements IUserAuthService {
 	
-	private  IUserMapper userMapper;
-	private  MessageSource messageSource;
+	private final IUserMapper userMapper;
+	private final MessageSource messageSource;
 
 	// private Locale locale = Locale.getDefault();
 	private Locale locale = Locale.CHINESE;

@@ -19,9 +19,8 @@ import com.sample.springlogin.service.LoginCheckService.ILoginErrorChecker;
 @RequestMapping("AuthPage")
 public class LoginBtn {
 	
-	
-	private ILoginErrorChecker<ObjectError, BindingResult> inputErrorChecker;
-	private ILoginErrorChecker<String, UserForm> authErrorChecker;
+	private final ILoginErrorChecker<ObjectError, BindingResult> inputErrorChecker;
+	private final ILoginErrorChecker<String, UserForm> authErrorChecker;
 	
 	@Autowired
 	public LoginBtn(
