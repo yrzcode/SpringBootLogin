@@ -15,7 +15,6 @@ public class LoginAuthChecker implements ILoginErrorChecker<String, UserForm> {
 	
 	@Autowired
 	public LoginAuthChecker(IUserAuthService userIdPasswordAuthService) {
-		super();
 		this.userIdPasswordAuthService = userIdPasswordAuthService;
 	}
 
