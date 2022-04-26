@@ -1,8 +1,10 @@
 package com.sample.springlogin.test.LoginControllerTest;
 
+import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.List;
 import java.util.Locale;
 
 import org.junit.Before;
@@ -21,6 +23,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.validation.ObjectError;
+
 import com.sample.springlogin.controller.auth.LoginBtn;
 
 
@@ -66,5 +70,30 @@ public class LoginBtnTest {
 		results.andExpect(model().errorCount(0));
 		
 	}
+	
+	
+	@Test
+    public void testAccountIdIsEmpty() throws Exception {
+        MockHttpServletRequestBuilder getRequest = MockMvcRequestBuilders.post("/AuthPage")
+                .param("accountId", "")
+                .param("password", "000001");
+        
+        ResultActions results = mockMvc.perform(getRequest);
+        
+        results.andDo(print());
+        results.andExpect(view().name("AuthPage"));
+        results.andExpect(model().errorCount(1));
+        
+        @SuppressWarnings("unchecked")
+        List<ObjectError> errorList = (List<ObjectError>) results.andReturn().getModelAndView().getModel()
+                .get("inputCheckErrorList");
+        String message = errorList.get(0).getDefaultMessage();
+        assertTrue(message.contains("login.error.accountId.notEmpty"));
+        
+    }
+	
+	
+	
+	
 		
 }
