@@ -21,7 +21,6 @@ public class UserIdPasswordAuthService implements IUserAuthService {
 	// private Locale locale = Locale.getDefault();
 	private Locale locale = Locale.CHINESE;
 	
-	
 	@Autowired
 	public UserIdPasswordAuthService(IUserMapper userMapper, MessageSource messageSource) {
 		this.userMapper = userMapper;
@@ -39,8 +38,6 @@ public class UserIdPasswordAuthService implements IUserAuthService {
 		} else if (!user.getPassword().equals(userForm.getPassword())) {
 			errorList.add(messageSource.getMessage("login.message.password.error", null, locale));
 		}
-
-		System.out.println(locale);
 
 		return errorList;
 	}

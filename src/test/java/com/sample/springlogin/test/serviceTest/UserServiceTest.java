@@ -2,7 +2,9 @@ package com.sample.springlogin.test.serviceTest;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.* ;
+import static org.hamcrest.Matchers.*;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,7 +30,7 @@ public class UserServiceTest {
 		
 		List<String> errorList = null;
 		errorList = userIdPasswordAuthService.getAuthErrorList(useFrom);
-		assertEquals(0, errorList.size());
+		assertThat(0, is(equalTo( errorList.size())));
 	}
 
 }
