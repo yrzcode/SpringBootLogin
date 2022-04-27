@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.sample.springlogin.bean.user.UserForm;
 import com.sample.springlogin.service.LoginCheckService.ILoginErrorChecker;
 
+import lombok.var;
+
 
 @Controller
 @RequestMapping("AuthPage")
@@ -25,7 +27,6 @@ public class LoginBtn {
 	private final ILoginErrorChecker<ObjectError, BindingResult> inputErrorChecker;
 	private final ILoginErrorChecker<String, UserForm> authErrorChecker;
 	
-
 	
 	@Autowired
 	public LoginBtn(
@@ -40,11 +41,14 @@ public class LoginBtn {
 			this.authErrorChecker = authErrorChecker;
 	}
 	
-
+	
 	@PostMapping
 	public String postMappingAuth(Model model, @ModelAttribute("form") @Valid UserForm userForm, BindingResult result) {
 		
-		//language
+		//language??
+		model.addAttribute("lang", Locale.getDefault().getDisplayLanguage());
+		//var locale = Locale.getDefault();
+			
 		model.addAttribute("lang", Locale.getDefault().getDisplayLanguage());
 		
 		// check input
