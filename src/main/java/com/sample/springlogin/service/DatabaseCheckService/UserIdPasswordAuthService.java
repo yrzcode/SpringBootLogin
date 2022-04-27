@@ -18,8 +18,8 @@ public class UserIdPasswordAuthService implements IUserAuthService {
 	private final IUserMapper userMapper;
 	private final MessageSource messageSource;
 
-	// private Locale locale = Locale.getDefault();
-	private Locale locale = Locale.CHINESE;
+	private Locale locale = Locale.getDefault();
+	//private Locale locale = Locale.CHINESE;
 	
 	@Autowired
 	public UserIdPasswordAuthService(IUserMapper userMapper, MessageSource messageSource) {

@@ -18,7 +18,7 @@ public class UserForm {
 	private String accountId;
 
 	@NotEmpty(message = "{login.error.password.notEmpty}")
-	@Size(min = 0, max = 6, message = "{login.error.password.length}")
+	@Size(min = 6, max = 6, message = "{login.error.password.length}")
 	private String password;
 
 }

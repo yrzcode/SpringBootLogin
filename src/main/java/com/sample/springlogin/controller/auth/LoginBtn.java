@@ -1,5 +1,7 @@
 package com.sample.springlogin.controller.auth;
 
+import java.util.Locale;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +17,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.sample.springlogin.bean.user.UserForm;
 import com.sample.springlogin.service.LoginCheckService.ILoginErrorChecker;
 
+
 @Controller
 @RequestMapping("AuthPage")
 public class LoginBtn {
 	
 	private final ILoginErrorChecker<ObjectError, BindingResult> inputErrorChecker;
 	private final ILoginErrorChecker<String, UserForm> authErrorChecker;
+	
+
 	
 	@Autowired
 	public LoginBtn(
@@ -39,6 +44,8 @@ public class LoginBtn {
 	@PostMapping
 	public String postMappingAuth(Model model, @ModelAttribute("form") @Valid UserForm userForm, BindingResult result) {
 		
+		//language
+		model.addAttribute("lang", Locale.getDefault().getDisplayLanguage());
 		
 		// check input
 		var inputErrorList =  inputErrorChecker.getErrorList(result);
@@ -65,8 +72,11 @@ public class LoginBtn {
 		
 		// decide which page to go by result
 		return isPassAllCheck ? "SuccessPage" : "AuthPage";
-
 		
+		
+
+
+
 	}
 
 }

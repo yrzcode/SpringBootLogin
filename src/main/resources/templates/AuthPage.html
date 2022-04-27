@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>welcome</title>
+    <link rel="stylesheet" th:href="@{/css/AuthPageStyle.css}">
 </head>
 
 <body>
@@ -11,8 +12,8 @@
 
 <!--container-->
 <div id="typein" align="center" style="border:1px solid; width:450px; margin:0 auto; padding:24px 0 8px">
-    <p>
-        hello
+    <p style="font-weight: bold;">
+        H E L L O
     </p>
 
     <!--form-->
@@ -20,30 +21,32 @@
 
         <table>
             <tr>
-                <td th:text="#{useerid}"></td>
+                <td class="input-title" th:text="#{useerid}"></td>
             </tr>
             <tr>
                 <td>
-                    <input type="text" name="accountId" value="" size="40"
+                    <!-- <input type="text" name="accountId" value="" size="40"
                            th:field="*{accountId}"
+                           th:placeholder="#{login.useerid.placeholder}"/> -->
+                    <input type="text" th:field="*{accountId}" size="40" 
                            th:placeholder="#{login.useerid.placeholder}"/>
                 </td>
             </tr>
             <tr>
-                <td th:text="#{password}"></td>
+                <td class="input-title" th:text="#{password}"></td>
             </tr>
             <tr>
                 <td>
-                    <input type="password" name="password"
-                           value="" maxlength="6" size="40"
-                           th:field="*{password}"/>
+                    <!-- <input type="password" name="password" value="" size="40"
+                           th:field="*{password}"/> -->
+                    <input type="password" th:field="*{password}" size="40"/> 
                 </td>
             </tr>
         </table>
 
         <!-- submit -->
         <input type="submit" th:attr="value=#{login}"
-               class="loginbtn" style="margin-top: 24px"/>
+               class="loginbtn"/>
         <br>
 
         <div>
@@ -61,6 +64,9 @@
         </table>
 
     </form>
+
+    <p th:text="|language is ${lang}|"></p>
+
 </div>
 
 

@@ -2,8 +2,8 @@ package com.sample.springlogin.test.serviceTest;
 
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.* ;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +26,14 @@ public class UserServiceTest {
 	public void rightAccountShouldReturnZeroError() {
 		var useFrom = new UserForm();
 		useFrom.setAccountId("111@softusing.com");
-		useFrom.setPassword("123");
+		useFrom.setPassword("123123");
 		
 		List<String> errorList = null;
 		errorList = userIdPasswordAuthService.getAuthErrorList(useFrom);
-		assertThat(0, is(equalTo( errorList.size())));
+		
+		//assertTrue(errorList.size() == 0);
+		assertThat(errorList.size(), is(0));
 	}
+	
 
 }
