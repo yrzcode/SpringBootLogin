@@ -13,7 +13,9 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sample.springlogin.Status;
 import com.sample.springlogin.bean.user.UserForm;
 import com.sample.springlogin.service.LoginCheckService.ILoginErrorChecker;
 
@@ -43,19 +45,27 @@ public class LoginBtn {
 	
 	
 	@PostMapping
-	public String postMappingAuth(Model model, @ModelAttribute("form") @Valid UserForm userForm, BindingResult result) {
+	public String postMappingAuth( @ModelAttribute("form") @Valid 
+														UserForm userForm,
+														BindingResult result,
+														@RequestParam("language")
+														String language,
+														Model model) {
 		
-		//language??
+		
+		//get language from browser
+		Status.languageInfo = language.substring(0,2);
+		Locale.setDefault(new Locale(language));
 		model.addAttribute("lang", Locale.getDefault().getDisplayLanguage());
-		//var locale = Locale.getDefault();
-			
-		model.addAttribute("lang", Locale.getDefault().getDisplayLanguage());
+		
 		
 		// check input
 		var inputErrorList =  inputErrorChecker.getErrorList(result);
 		var isPassInputCheck = inputErrorChecker.getCheckResult(result);
-		if (!isPassInputCheck)  model.addAttribute("inputCheckErrorList", inputErrorList);
-
+		if (!isPassInputCheck)  model.addAttribute(
+				"inputCheckErrorList", 
+				inputErrorList);
+		
 		
 		// check database authentication
 		var databaseAuthErrorList = authErrorChecker.getErrorList(userForm);
@@ -63,24 +73,20 @@ public class LoginBtn {
 		if (!isPassDatabaseAuthCheck)
 			model.addAttribute("message", databaseAuthErrorList.get(0));
 		else
-			Auth.loginAccountId = userForm.getAccountId();
+			Status.loginAccountId = userForm.getAccountId();
 		
 		
 		// final check
 		var isPassAllCheck = isPassInputCheck && isPassDatabaseAuthCheck;
-
+		
 		
 		// memorize login result
-		Auth.hasPassAuth = isPassAllCheck;
-
+		Status.hasPassAuth = isPassAllCheck;
+		
 		
 		// decide which page to go by result
 		return isPassAllCheck ? "SuccessPage" : "AuthPage";
-		
-		
-
-
-
+	
 	}
 
 }

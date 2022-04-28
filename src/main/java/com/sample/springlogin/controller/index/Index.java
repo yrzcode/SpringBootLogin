@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.sample.springlogin.Status;
 import com.sample.springlogin.bean.user.UserForm;
 import com.sample.springlogin.controller.auth.Auth;
 
@@ -17,7 +18,7 @@ public class Index {
             @ModelAttribute("form")
             UserForm userForm
     ){
-        Auth.hasPassAuth  = false;
+    	Status.hasPassAuth  = false;
         return "AuthPage";
     }
 

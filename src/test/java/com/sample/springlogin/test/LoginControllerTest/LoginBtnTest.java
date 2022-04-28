@@ -9,7 +9,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.List;
 import java.util.Locale;
 
-
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,6 @@ import org.springframework.validation.ObjectError;
 
 import com.sample.springlogin.bean.user.UserForm;
 import com.sample.springlogin.controller.auth.LoginBtn;
-
 
 //@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 //@ExtendWith(SpringExtension.class)
@@ -48,32 +46,54 @@ public class LoginBtnTest {
 		this.mockMvc = MockMvcBuilders.standaloneSetup(loginBtn).build();
 	}
 	
-	@Test
-	public void rightIdShouldLoginSuccess() throws Exception {
-//		var userForm = new UserForm();
-//		userForm.setAccountId("111@softusing.com");
-//		userForm.setPassword("123");
-		
-        MockHttpServletRequestBuilder getRequest = MockMvcRequestBuilders.post("/AuthPage")
-                .param("accountId", "111@softusing.com")
-                .param("password", "123123");
-        
+//	@Test
+//	public void testLoginSuccess() throws Exception {
+////		var userForm = new UserForm();
+////		userForm.setAccountId("111@softusing.com");
+////		userForm.setPassword("123");
+//		
 //        MockHttpServletRequestBuilder getRequest = MockMvcRequestBuilders.post("/AuthPage")
-//                .requestAttr("form", userForm);
+//                .param("accountId", "111@softusing.com")
+//                .param("password", "123123");
+//        
+////        MockHttpServletRequestBuilder getRequest = MockMvcRequestBuilders.post("/AuthPage")
+////                .requestAttr("form", userForm);
+//		
+//		ResultActions results = this.mockMvc.perform(getRequest);
+//		
+//		results.andDo(print());
+//		results.andExpect(view().name("SuccessPage"));
+//		results.andExpect(model().errorCount(0));
+//	}
+	
+	
+	@Test
+	void testLoginSuccess() throws Exception {
 		
-		ResultActions results = this.mockMvc.perform(getRequest);
+		var request = MockMvcRequestBuilders.post("/AuthPage")
+				.param("accountId","111@softusing.com")
+				.param("password","123123")
+				.param("language", "en");
+		
+		var results = mockMvc.perform(request);
 		
 		results.andDo(print());
 		results.andExpect(view().name("SuccessPage"));
-		results.andExpect(model().errorCount(0));
+		
+		var form =  (UserForm)results.andReturn().getModelAndView().getModel().get("form");
+		var message = form.getAccountId();
+		assertThat(message, is("111@softusing.com"));
+		
 	}
 	
 	
 	@Test
      void testAccountIdIsEmpty() throws Exception    {
+		
         MockHttpServletRequestBuilder getRequest = MockMvcRequestBuilders.post("/AuthPage")
                 .param("accountId", "")
-                .param("password", "123123");
+                .param("password", "123123")
+				.param("language", "en");
         
         ResultActions results = mockMvc.perform(getRequest);
         
@@ -95,7 +115,8 @@ public class LoginBtnTest {
 		
 		var getRequest  = MockMvcRequestBuilders.post("/AuthPage")
                 .param("accountId", "111")
-                .param("password", "123123");
+                .param("password", "123123")
+				.param("language", "en");
 		
 		var results = mockMvc.perform(getRequest);
 		
@@ -111,14 +132,18 @@ public class LoginBtnTest {
 		var message = errorList.get(0).getDefaultMessage();
 		//assertTrue(message.contains("Please input Email Address!"));
 	    assertThat(message, containsString("Please input Email Address!"));
+	    
 	}
 	
 
 	@Test
 	void testPasswordLength() throws Exception {
+		
 		var request = MockMvcRequestBuilders.post("/AuthPage")
 				.param("accountId", "111@softusing")
-				.param("password","0");
+				.param("password","0")
+				.param("language", "en");
+		
 		var results = mockMvc.perform(request);
 		
 		results.andDo(print());
@@ -132,14 +157,18 @@ public class LoginBtnTest {
 		
 		var message = errorList.get(0).getDefaultMessage();
 		assertThat(message, containsString("Please input 6 bytes Password!"));
+		
 	}
 	
 	
 	@Test
 	void testLoginAccountError() throws Exception {
+		
 		var request = MockMvcRequestBuilders.post("/AuthPage")
 				.param("accountId", "1@softusing.com")
-				.param("password","123123");
+				.param("password","123123")
+				.param("language", "en");
+		
 		var results = mockMvc.perform(request);
 		
 		results.andDo(print());
@@ -147,15 +176,21 @@ public class LoginBtnTest {
 		results.andExpect(model().errorCount(0));
 		
 		var message = (String) results.andReturn().getModelAndView().getModel().get("message");
-		assertThat(message, is(mesaageSource.getMessage("login.message.accountId.error", null, Locale.getDefault())));
+		assertThat(
+				message, 
+				is(mesaageSource.getMessage("login.message.accountId.error", null, Locale.getDefault())));
 		
 	}
 	
+	
 	@Test 
 	void testPasswordError() throws Exception {
+		
 		var request = MockMvcRequestBuilders.post("/AuthPage")
 				.param("accountId", "111@softusing.com")
-				.param("password","111111");
+				.param("password","111111")
+				.param("language", "en");
+				
 		var results = mockMvc.perform(request);
 		
 		results.andDo(print());
@@ -163,24 +198,12 @@ public class LoginBtnTest {
 		results.andExpect(model().errorCount(0));
 		
 		var message = (String)results.andReturn().getModelAndView().getModel().get("message");
-		assertThat(message, is(mesaageSource.getMessage("login.message.password.error", null, Locale.getDefault())));
+		assertThat(
+				message, 
+				is(mesaageSource.getMessage(
+						"login.message.password.error", null, Locale.getDefault())));
+		
 	}
 	
-	@Test
-	void testLoginSuccess() throws Exception {
-		var request = MockMvcRequestBuilders.post("/AuthPage")
-				.param("accountId","111@softusing.com")
-				.param("password","123123");
-		
-		var results = mockMvc.perform(request);
-		
-		results.andDo(print());
-		results.andExpect(view().name("SuccessPage"));
-		
-		var form =  (UserForm)results.andReturn().getModelAndView().getModel().get("form");
-		var message = form.getAccountId();
-		assertThat(message, is("111@softusing.com"));
-		
-	}
 	
 }

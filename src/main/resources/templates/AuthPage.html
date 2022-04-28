@@ -12,12 +12,15 @@
 
 <!--container-->
 <div id="typein" align="center" style="border:1px solid; width:450px; margin:0 auto; padding:24px 0 8px">
+   
     <p style="font-weight: bold;">
         H E L L O
     </p>
 
     <!--form-->
     <form th:action="@{AuthPage}" method="post" th:object="${form}">
+
+        <input type="text" name="language" id="language" style="display: none;">
 
         <table>
             <tr>
@@ -65,13 +68,11 @@
 
     </form>
 
-    <p th:text="|language is ${lang}|"></p>
+    <!-- test display language -->
+    <!-- <p th:text="|language is ${lang}|"></p> -->
 
 </div>
 
-<form id="languagefrom" style="display: none;">
-    <input type="text" name="language" id="language">
-</form>
 
 <!--footer-->
 <footer>
